@@ -2,49 +2,67 @@ import 'package:flutter/material.dart';
 import 'package:productive/config/theme.dart';
 
 class ItemPlan extends StatelessWidget {
-  bool checked;
+  bool? checkedPlan;
   String? title;
   String? location;
   TimeOfDay? start;
   TimeOfDay? end;
-  ItemPlan(
-      {this.checked = false, this.title, this.location, this.start, this.end});
+  final changechecked;
+  final handleDelete;
+  int? id;
+  ItemPlan({
+    Key? key,
+    this.checkedPlan,
+    this.title,
+    this.location,
+    this.start,
+    this.end,
+    this.changechecked,
+    this.id,
+    this.handleDelete,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Widget Checked() {
-      return Container(
-        width: 30,
-        height: 30,
-        decoration: BoxDecoration(
-          color: secondaryColor,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(
-              30,
+    Widget checked() {
+      return GestureDetector(
+        onTap: () => changechecked(id, false),
+        child: Container(
+          width: 30,
+          height: 30,
+          decoration: BoxDecoration(
+            color: secondaryColor,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(
+                30,
+              ),
             ),
           ),
-        ),
-        child: Icon(
-          Icons.check_rounded,
-          color: whiteColor,
-          size: 24,
+          child: Icon(
+            Icons.check_rounded,
+            color: whiteColor,
+            size: 24,
+          ),
         ),
       );
     }
 
-    Widget Unchecked() {
-      return Container(
-        width: 30,
-        height: 30,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(
-              30,
+    Widget unChecked() {
+      return GestureDetector(
+        onTap: () => changechecked(id, true),
+        child: Container(
+          width: 30,
+          height: 30,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(
+                30,
+              ),
             ),
-          ),
-          border: Border.all(
-            width: 2,
-            color: greyColor,
+            border: Border.all(
+              width: 2,
+              color: greyColor,
+            ),
           ),
         ),
       );
@@ -78,28 +96,31 @@ class ItemPlan extends StatelessWidget {
       ),
       child: Row(
         children: [
-          checked ? Checked() : Unchecked(),
+          checkedPlan! ? checked() : unChecked(),
           const SizedBox(
             width: 10,
           ),
           Expanded(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title ?? '',
-                style: primaryTextStyle.copyWith(
-                  fontSize: 14,
-                  fontWeight: medium,
+              child: GestureDetector(
+            onDoubleTap: () => handleDelete(id),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title ?? '',
+                  style: primaryTextStyle.copyWith(
+                    fontSize: 14,
+                    fontWeight: medium,
+                  ),
                 ),
-              ),
-              Text(
-                "${location ?? '-'}, ${getTime(start)} - ${getTime(end)}",
-                style: greyTextStyle.copyWith(
-                  fontSize: 10,
-                ),
-              )
-            ],
+                Text(
+                  "${location ?? '-'}, ${getTime(start)} - ${getTime(end)}",
+                  style: greyTextStyle.copyWith(
+                    fontSize: 10,
+                  ),
+                )
+              ],
+            ),
           ))
         ],
       ),

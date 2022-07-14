@@ -1,6 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:productive/config/theme.dart';
+import 'package:productive/provider/plan_provider.dart';
+import 'package:provider/provider.dart';
 
 class Chart extends StatefulWidget {
   const Chart({Key? key}) : super(key: key);
@@ -12,6 +14,8 @@ class Chart extends StatefulWidget {
 class _ChartState extends State<Chart> {
   @override
   Widget build(BuildContext context) {
+    PlanProvider planProvider = Provider.of<PlanProvider>(context);
+
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -67,7 +71,7 @@ class _ChartState extends State<Chart> {
                           alignment: Alignment.center,
                           children: [
                             Text(
-                              '80%',
+                              "${planProvider.checked.round()}%",
                               style: whiteTextStyle.copyWith(
                                 fontSize: 16,
                                 fontWeight: medium,
@@ -83,13 +87,13 @@ class _ChartState extends State<Chart> {
                                 sections: [
                                   PieChartSectionData(
                                     color: secondaryColor,
-                                    value: 80,
+                                    value: planProvider.checked,
                                     radius: 10,
                                     title: '',
                                   ),
                                   PieChartSectionData(
                                     color: darkGreyColor,
-                                    value: 20,
+                                    value: planProvider.unChecked,
                                     radius: 10,
                                     title: '',
                                   ),

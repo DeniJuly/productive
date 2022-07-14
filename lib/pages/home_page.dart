@@ -1,9 +1,7 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:productive/config/theme.dart';
+import 'package:productive/model/plan_model.dart';
 import 'package:productive/provider/plan_provider.dart';
 import 'package:productive/widget/chart.dart';
 import 'package:productive/widget/item_plan.dart';
@@ -27,6 +25,14 @@ class _HomePageState extends State<HomePage> {
         statusBarIconBrightness: Brightness.dark,
       ),
     );
+
+    void changechecked(int id, bool status) {
+      planProvider.editStatus(id, status);
+    }
+
+    void handleDelete(int id) {
+      planProvider.deletePlan(id);
+    }
 
     Widget content() {
       return SafeArea(
@@ -71,13 +77,18 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Column(
                   children: planProvider.plans
-                      .map((e) => ItemPlan(
-                            checked: false,
-                            title: e.title,
-                            location: e.location,
-                            start: e.startTime,
-                            end: e.endTime,
-                          ))
+                      .map(
+                        (e) => ItemPlan(
+                          checkedPlan: e.status,
+                          title: e.title,
+                          location: e.location,
+                          start: e.startTime,
+                          end: e.endTime,
+                          changechecked: changechecked,
+                          id: e.id,
+                          handleDelete: handleDelete,
+                        ),
+                      )
                       .toList(),
                 ),
               ],

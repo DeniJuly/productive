@@ -48,6 +48,7 @@ class _AddPageState extends State<AddPage> {
         'endDate': endDate,
         'endTime': endTime,
         'id': id,
+        'status': false,
       };
       PlanModel plan = PlanModel.fromJson(params);
       planProvider.addPlan(plan);
