@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "542856021084",
+    "project_id": "productive-112",
+    "storage_bucket": "productive-112.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542856021084:android:fa1ea62aa7a1aa40885299",
+        "android_client_info": {
+          "package_name": "com.example.productive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542856021084-3tqd83mmvqt75nt09rdjvdo1rb072qvc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh5tEnc8zwkW825bHReUDw6HEy-B31_nE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542856021084-3tqd83mmvqt75nt09rdjvdo1rb072qvc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "542856021084-0ml9deoehgg21j7ofqe038hggcvpud68.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.iamdeni.productive"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542856021084:android:878ac610631a3cb0885299",
+        "android_client_info": {
+          "package_name": "com.iamdeni.productive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542856021084-3tqd83mmvqt75nt09rdjvdo1rb072qvc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh5tEnc8zwkW825bHReUDw6HEy-B31_nE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542856021084-3tqd83mmvqt75nt09rdjvdo1rb072qvc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "542856021084-0ml9deoehgg21j7ofqe038hggcvpud68.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.iamdeni.productive"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

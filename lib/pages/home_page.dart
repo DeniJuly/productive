@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:productive/config/theme.dart';
 import 'package:productive/model/plan_model.dart';
-import 'package:productive/provider/plan_provider.dart';
+import 'package:productive/service/plan_service.dart';
 import 'package:productive/widget/chart.dart';
 import 'package:productive/widget/item_plan.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +17,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    PlanProvider planProvider = Provider.of<PlanProvider>(context);
-
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: bgPageColor,
@@ -26,12 +24,60 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
-    void changechecked(int id, bool status) {
-      planProvider.editStatus(id, status);
+    void changechecked(String id, bool status) {
+      PlanService().updStatusPlan(id, status);
     }
 
-    void handleDelete(int id) {
-      planProvider.deletePlan(id);
+    void handleDelete(String id) {
+      PlanService().delPlan(id);
+    }
+
+    double calculateProgress(List<PlanModel> data) {
+      int count = data.length;
+      if (count > 0) {
+        int checked = data.where((item) => item.status == true).length;
+        return (checked / count) * 100;
+      }
+      return 0.0;
+    }
+
+    Widget renderPlan(List<PlanModel> data) {
+      double checkedProgress = calculateProgress(data);
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Chart(checkedProgress: checkedProgress),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            'Today Plans',
+            style: primaryTextStyle.copyWith(
+              fontSize: 18,
+              fontWeight: medium,
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Column(
+            children: data
+                .map(
+                  (PlanModel e) => ItemPlan(
+                    checkedPlan: e.status,
+                    title: e.title,
+                    location: e.location,
+                    start: e.startDate!.substring(11, 16),
+                    end: e.endDate!.substring(11, 16),
+                    changechecked: changechecked,
+                    id: e.docId,
+                    handleDelete: handleDelete,
+                  ),
+                )
+                .toList(),
+          )
+        ],
+      );
     }
 
     Widget content() {
@@ -61,35 +107,20 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Chart(),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'Today Plans',
-                  style: primaryTextStyle.copyWith(
-                    fontSize: 18,
-                    fontWeight: medium,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Column(
-                  children: planProvider.plans
-                      .map(
-                        (e) => ItemPlan(
-                          checkedPlan: e.status,
-                          title: e.title,
-                          location: e.location,
-                          start: e.startTime,
-                          end: e.endTime,
-                          changechecked: changechecked,
-                          id: e.id,
-                          handleDelete: handleDelete,
+                StreamBuilder<List<PlanModel>>(
+                  stream: PlanService().getPlan(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return renderPlan(snapshot.data!);
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(primaryColor),
                         ),
-                      )
-                      .toList(),
+                      );
+                    }
+                  },
                 ),
               ],
             ),

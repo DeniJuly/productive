@@ -3,31 +3,25 @@ import 'package:flutter/material.dart';
 class PlanModel {
   String? title;
   String? location;
-  DateTime? startDate;
-  TimeOfDay? startTime;
-  DateTime? endDate;
-  TimeOfDay? endTime;
-  int? id;
+  String? startDate;
+  String? endDate;
+  String? docId;
   bool? status;
 
   PlanModel({
     this.title,
     this.location,
     this.startDate,
-    this.startTime,
     this.endDate,
-    this.endTime,
-    this.id,
+    this.docId,
   });
 
-  PlanModel.fromJson(Map<String, dynamic> json) {
+  PlanModel.fromJson(Map<String, dynamic> json, String id) {
     title = json['title'];
     location = json['location'];
-    startDate = json['startDate'];
-    startTime = json['startTime'];
-    endDate = json['endDate'];
-    endTime = json['endTime'];
-    id = json['id'];
+    startDate = json['start_date'];
+    endDate = json['end_date'];
+    docId = id;
     status = json['status'];
   }
 }

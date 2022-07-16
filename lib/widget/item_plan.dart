@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:productive/config/theme.dart';
 
@@ -5,11 +7,11 @@ class ItemPlan extends StatelessWidget {
   bool? checkedPlan;
   String? title;
   String? location;
-  TimeOfDay? start;
-  TimeOfDay? end;
+  String? start;
+  String? end;
   final changechecked;
   final handleDelete;
-  int? id;
+  String? id;
   ItemPlan({
     Key? key,
     this.checkedPlan,
@@ -24,6 +26,8 @@ class ItemPlan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("ID PLAN");
+    print(id);
     Widget checked() {
       return GestureDetector(
         onTap: () => changechecked(id, false),
@@ -68,16 +72,6 @@ class ItemPlan extends StatelessWidget {
       );
     }
 
-    String getTime(time) {
-      if (time == null) {
-        return '00:00';
-      } else {
-        final jam = time?.hour.toString().padLeft(2, '0');
-        final menit = time?.minute.toString().padLeft(2, '0');
-        return '${jam}:${menit}';
-      }
-    }
-
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 20,
@@ -114,7 +108,7 @@ class ItemPlan extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${location ?? '-'}, ${getTime(start)} - ${getTime(end)}",
+                  "${location ?? '-'}, $start - $end",
                   style: greyTextStyle.copyWith(
                     fontSize: 10,
                   ),

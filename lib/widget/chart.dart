@@ -1,11 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:productive/config/theme.dart';
-import 'package:productive/provider/plan_provider.dart';
-import 'package:provider/provider.dart';
 
 class Chart extends StatefulWidget {
-  const Chart({Key? key}) : super(key: key);
+  double? checkedProgress;
+  Chart({Key? key, this.checkedProgress}) : super(key: key);
 
   @override
   State<Chart> createState() => _ChartState();
@@ -14,8 +13,6 @@ class Chart extends StatefulWidget {
 class _ChartState extends State<Chart> {
   @override
   Widget build(BuildContext context) {
-    PlanProvider planProvider = Provider.of<PlanProvider>(context);
-
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -57,7 +54,11 @@ class _ChartState extends State<Chart> {
                     Expanded(
                       flex: 2,
                       child: Text(
-                        'Keren, rencanamu \nhari ini hampir selesai',
+                        widget.checkedProgress!.round() == 100
+                            ? "Anjay, udah selesai semua bre"
+                            : widget.checkedProgress!.round() > 70
+                                ? 'Keren, rencanamu \nhari ini hampir selesai'
+                                : "Semangat, kamu pasti bisa",
                         style: whiteTextStyle.copyWith(
                           fontSize: 16,
                           fontWeight: medium,
@@ -71,7 +72,7 @@ class _ChartState extends State<Chart> {
                           alignment: Alignment.center,
                           children: [
                             Text(
-                              "${planProvider.checked.round()}%",
+                              "${widget.checkedProgress!.round()}%",
                               style: whiteTextStyle.copyWith(
                                 fontSize: 16,
                                 fontWeight: medium,
@@ -87,13 +88,17 @@ class _ChartState extends State<Chart> {
                                 sections: [
                                   PieChartSectionData(
                                     color: secondaryColor,
-                                    value: planProvider.checked,
+                                    value: widget.checkedProgress,
                                     radius: 10,
                                     title: '',
                                   ),
                                   PieChartSectionData(
                                     color: darkGreyColor,
-                                    value: planProvider.unChecked,
+                                    value: (100 -
+                                            int.parse(widget.checkedProgress!
+                                                .round()
+                                                .toString()))
+                                        .toDouble(),
                                     radius: 10,
                                     title: '',
                                   ),

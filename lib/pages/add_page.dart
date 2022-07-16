@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:productive/config/theme.dart';
-import 'package:productive/model/plan_model.dart';
-import 'package:productive/provider/plan_provider.dart';
+import 'package:productive/service/plan_service.dart';
 import 'package:productive/widget/input_date_time.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +21,6 @@ class _AddPageState extends State<AddPage> {
 
   @override
   Widget build(BuildContext context) {
-    PlanProvider planProvider = Provider.of<PlanProvider>(context);
     PreferredSizeWidget appBar() {
       return AppBar(
         centerTitle: true,
@@ -38,20 +34,24 @@ class _AddPageState extends State<AddPage> {
       );
     }
 
-    void handleSave() {
-      int id = Random().nextInt(9999);
+    String convertDate(DateTime date, TimeOfDay time) {
+      final tgl = date.day.toString().padLeft(2, '0');
+      final bln = date.month.toString().padLeft(2, '0');
+      final year = date.year.toString();
+      final jam = time.hour.toString().padLeft(2, '0');
+      final menit = time.minute.toString().padLeft(2, '0');
+      return "$year-$bln-$tgl $jam:$menit";
+    }
+
+    void handleSave() async {
       Map<String, dynamic> params = {
         'title': titleController.text,
         'location': locationController.text,
-        'startDate': startDate,
-        'startTime': startTime,
-        'endDate': endDate,
-        'endTime': endTime,
-        'id': id,
+        'start_date': convertDate(startDate!, startTime!),
+        'end_date': convertDate(endDate!, endTime!),
         'status': false,
       };
-      PlanModel plan = PlanModel.fromJson(params);
-      planProvider.addPlan(plan);
+      await PlanService().addPlan(params);
       Navigator.pop(context);
     }
 
