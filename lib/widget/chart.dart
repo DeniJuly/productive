@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:productive/config/theme.dart';
 
+// ignore: must_be_immutable
 class Chart extends StatefulWidget {
   double? checkedProgress;
   Chart({Key? key, this.checkedProgress}) : super(key: key);

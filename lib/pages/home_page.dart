@@ -5,7 +5,6 @@ import 'package:productive/model/plan_model.dart';
 import 'package:productive/service/plan_service.dart';
 import 'package:productive/widget/chart.dart';
 import 'package:productive/widget/item_plan.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

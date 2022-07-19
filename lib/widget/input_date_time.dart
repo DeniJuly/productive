@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:productive/config/theme.dart';
 
@@ -52,7 +54,7 @@ class _InputDateTimeState extends State<InputDateTime> {
         final tgl = widget.date?.day.toString().padLeft(2, '0');
         final bln = widget.date?.month.toString().padLeft(2, '0');
         final year = widget.date?.year.toString();
-        return '${tgl} - ${bln} - ${year}';
+        return '$tgl - $bln - $year';
       }
     }
 
@@ -62,7 +64,7 @@ class _InputDateTimeState extends State<InputDateTime> {
       } else {
         final jam = widget.time?.hour.toString().padLeft(2, '0');
         final menit = widget.time?.minute.toString().padLeft(2, '0');
-        return '${jam} : ${menit}';
+        return '$jam : $menit';
       }
     }
 

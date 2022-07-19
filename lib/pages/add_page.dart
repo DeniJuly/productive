@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:productive/config/theme.dart';
 import 'package:productive/service/plan_service.dart';
 import 'package:productive/widget/input_date_time.dart';
-import 'package:provider/provider.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({Key? key}) : super(key: key);
@@ -52,6 +51,7 @@ class _AddPageState extends State<AddPage> {
         'status': false,
       };
       await PlanService().addPlan(params);
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
     }
 

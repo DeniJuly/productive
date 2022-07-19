@@ -37,18 +37,13 @@ class PlanService {
         return result;
       });
     } catch (e) {
-      print("ERROR");
-      print(e);
       throw Exception(e);
     }
   }
 
   Future<void> addPlan(Map<String, dynamic> plan) async {
     try {
-      firestore
-          .collection("plan")
-          .add(plan)
-          .then((value) => print("berhasil tambah plan"));
+      firestore.collection("plan").add(plan);
     } catch (e) {
       throw Exception(e);
     }
@@ -66,11 +61,7 @@ class PlanService {
 
   Future<void> delPlan(String id) async {
     try {
-      firestore
-          .collection("plan")
-          .doc(id)
-          .delete()
-          .then((value) => print("berhasil hapus data plan"));
+      firestore.collection("plan").doc(id).delete();
     } catch (e) {
       throw Exception(e);
     }

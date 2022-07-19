@@ -26,8 +26,6 @@ class ItemPlan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("ID PLAN");
-    print(id);
     Widget checked() {
       return GestureDetector(
         onTap: () => changechecked(id, false),

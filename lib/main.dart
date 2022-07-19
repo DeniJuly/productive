@@ -4,7 +4,6 @@ import 'package:productive/config/theme.dart';
 import 'package:productive/firebase_options.dart';
 import 'package:productive/pages/add_page.dart';
 import 'package:productive/pages/home_page.dart';
-import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
